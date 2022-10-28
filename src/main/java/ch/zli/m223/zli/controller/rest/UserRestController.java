@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ch.zli.m223.zli.controller.rest.dto.UserDto;
-import ch.zli.m223.crm.controller.rest.dto.UserInputDto;
+import ch.zli.m223.zli.controller.rest.dto.UserInputDto;
 import ch.zli.m223.zli.model.AppUser;
 import ch.zli.m223.zli.service.UserService;
 

@@ -1,4 +1,4 @@
-package ch.zli.m223.crm.controller.rest.dto;
+package ch.zli.m223.zli.controller.rest.dto;
 
 /**
  * This is the InputDTO to add an new user with post

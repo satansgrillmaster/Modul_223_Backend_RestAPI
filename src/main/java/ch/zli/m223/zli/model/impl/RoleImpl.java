@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import ch.zli.m223.crm.model.Role;
+import ch.zli.m223.zli.model.Role;
 
 @Entity(name = "Role")
 public class RoleImpl implements Role {
