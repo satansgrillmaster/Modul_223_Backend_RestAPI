@@ -11,9 +11,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import ch.zli.m223.zli.model.impl.AppUserImpl;
-import ch.zli.m223.zli.model.impl.CustomerImpl;
-import ch.zli.m223.zli.repository.CustomerRepository;
-import ch.zli.m223.zli.repository.MemoRepository;
 import ch.zli.m223.zli.repository.RoleRepository;
 import ch.zli.m223.zli.repository.UserRepository;
 import ch.zli.m223.zli.role.Roles;
@@ -26,12 +23,6 @@ public class ServerInitializer implements ApplicationRunner {
 
     @Autowired
     private RoleRepository roleRepository;
-
-    @Autowired
-    private CustomerRepository customerRepository;
-
-    @Autowired
-    private MemoRepository memoRepository;
 
     @Transactional
     @Override
@@ -61,12 +52,6 @@ public class ServerInitializer implements ApplicationRunner {
 
         user4 = userRepository.save(new AppUserImpl("colin", "securepassword"));
         roleRepository.setRoles(user4, roles);
-
-        CustomerImpl customer = customerRepository.save(new CustomerImpl("Name", "Street", "City"));
-        memoRepository.setMemos(customer, "Neues Gespräch setzen");
-
-        customer = customerRepository.save(new CustomerImpl("Max Werner", "ZLI", "Zürich"));
-        memoRepository.setMemos(customer, "LB Besprechung erfolgreich");
 
         roles.clear();
     }
