@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface UserCountryService {
     List<UserCountry> getAllCountrys();
-
 }
