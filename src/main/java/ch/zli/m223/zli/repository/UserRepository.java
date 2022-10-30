@@ -6,8 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import ch.zli.m223.zli.model.AppUser;
 import ch.zli.m223.zli.model.impl.AppUserImpl;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface UserRepository extends JpaRepository<AppUserImpl, Long> {
+public interface UserRepository extends JpaRepository<AppUserImpl, Long>, JpaSpecificationExecutor<AppUserImpl> {
 
     public Optional<AppUserImpl> findUserByEmail(String email);
 

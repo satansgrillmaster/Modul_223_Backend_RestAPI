@@ -13,7 +13,7 @@ public interface RoleRepository extends JpaRepository<RoleImpl, Long>{
     public default AppUser setRoles(AppUser user, List<String> roles) {
         AppUserImpl appUser = (AppUserImpl)user;
         for (String role : roles) {
-            RoleImpl dbRole = save(new RoleImpl(role, appUser));
+            RoleImpl dbRole = save(new RoleImpl(role));
             appUser.addRole(dbRole);
         }
         return user;

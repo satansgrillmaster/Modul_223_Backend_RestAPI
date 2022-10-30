@@ -1,10 +1,14 @@
 package ch.zli.m223.zli.init;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import ch.zli.m223.zli.model.AppUser;
+import ch.zli.m223.zli.model.Role;
+import ch.zli.m223.zli.model.impl.RoleImpl;
 import ch.zli.m223.zli.model.UserCountry;
 import ch.zli.m223.zli.model.impl.UserCountryImpl;
 import ch.zli.m223.zli.repository.UserCountryRepository;
@@ -40,29 +44,43 @@ public class ServerInitializer implements ApplicationRunner {
         AppUserImpl user3; // user3 is superuser
         AppUserImpl user4;
 
+        RoleImpl roleAdmin = new RoleImpl("admin");
+        RoleImpl roleUser = new RoleImpl("user");
+        RoleImpl roleStaff = new RoleImpl("staff");
+
+
+        roleRepository.save(roleAdmin);
+        roleRepository.save(roleUser);
+        roleRepository.save(roleStaff);
+
+        Collection<AppUserImpl> adminUsers = new ArrayList<>();
+        Collection<AppUserImpl> staffUsers = new ArrayList<>();
+        Collection<AppUserImpl> users = new ArrayList<>();
+
+
         UserCountryImpl country1;
+
         country1 = userCountryRepository.save(new UserCountryImpl("ch"));
 
-        roles.clear();
-        roles.add(Roles.USER);
-        user = userRepository.save(new AppUserImpl("user", "user"));
-        roleRepository.setRoles(user, roles);
+        user = userRepository.save(new AppUserImpl("user@user.ch", "user"));
+        users.add(user);
+        staffUsers.add(user);
 
-        roles.clear();
-        roles.add(Roles.ADMIN);
-        user2 = userRepository.save(new AppUserImpl("admin", "admin"));
-        roleRepository.setRoles(user2, roles);
+        user2 = userRepository.save(new AppUserImpl("admin@admin.ch", "admin"));
+        adminUsers.add(user2);
 
-        roles.clear();
-        roles.add(Roles.ADMIN);
-        roles.add(Roles.USER);
-        user3 = userRepository.save(new AppUserImpl("usmin", "usmin"));
-        roleRepository.setRoles(user3, roles);
+        user3 = userRepository.save(new AppUserImpl("staff@staff.ch", "staff"));
+        adminUsers.add(user3);
+        users.add(user3);
+        staffUsers.add(user3);
 
-        user4 = userRepository.save(new AppUserImpl("Matthias", "securepassword"));
-        roleRepository.setRoles(user4, roles);
+        user4 = userRepository.save(new AppUserImpl("maetthe_hollenstein@hotmail.com", "password"));
+        adminUsers.add(user4);
 
-        roles.clear();
+        roleAdmin.setUsers(adminUsers);
+        roleUser.setUsers(users);
+        roleStaff.setUsers(staffUsers);
+
     }
 
 }

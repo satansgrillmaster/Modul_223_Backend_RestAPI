@@ -1,13 +1,12 @@
 package ch.zli.m223.zli.model.impl;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import ch.zli.m223.zli.model.Role;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity(name = "Role")
 public class RoleImpl implements Role {
@@ -19,11 +18,14 @@ public class RoleImpl implements Role {
     @Column(nullable = false)
     private String role;
 
-    @ManyToOne
-    private AppUserImpl appUser;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "AppUser_Role",
+    joinColumns = @JoinColumn(name = "role_id"),
+    inverseJoinColumns = @JoinColumn(name = "appuser_id"))
+    private Collection<AppUserImpl> users = new ArrayList<>();
 
-    public RoleImpl(String role, AppUserImpl user) {
-        appUser = user;
+
+    public RoleImpl(String role) {
         this.role = role;
     }
 
@@ -41,4 +43,11 @@ public class RoleImpl implements Role {
         return role;
     }
 
+    public Collection<AppUserImpl> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Collection<AppUserImpl> users) {
+        this.users = users;
+    }
 }

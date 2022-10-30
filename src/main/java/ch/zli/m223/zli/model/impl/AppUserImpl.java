@@ -3,17 +3,13 @@ package ch.zli.m223.zli.model.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
+import ch.zli.m223.zli.controller.rest.dto.RoleDto;
+import ch.zli.m223.zli.model.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,22 +26,24 @@ public class AppUserImpl implements AppUser {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<RoleImpl> roles;
+    @ManyToMany(mappedBy = "users",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Collection<RoleImpl> userRoles = new ArrayList<>();
+
+
+    //    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //    private List<RoleImpl> roles;
 
     private String hashedPassword;
 
     public AppUserImpl(String email, String password) {
         this.email = email;
         hashedPassword = new BCryptPasswordEncoder().encode(password);
-        roles = new ArrayList<>();
     }
 
     public AppUserImpl(Long id, String email, String password) {
         this.id = id;
         this.email = email;
         hashedPassword = new BCryptPasswordEncoder().encode(password);
-        roles = new ArrayList<>();
     }
 
     protected AppUserImpl() {
@@ -54,10 +52,12 @@ public class AppUserImpl implements AppUser {
 
     @Override
     public List<String> getRoles() {
-        return roles.stream().map((RoleImpl role) -> {
-                    return role.getRole();
-                })
-                .collect(Collectors.toList());
+        List<String> test = new ArrayList<>();
+        for (Role role:getUserRoles()
+             ) {
+            test.add(role.getRole());
+        }
+        return test;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class AppUserImpl implements AppUser {
     }
 
     public void addRole(RoleImpl role) {
-        roles.add(role);
+        userRoles.add(role);
     }
 
     @Override
@@ -111,4 +111,11 @@ public class AppUserImpl implements AppUser {
         return true;
     }
 
+    public Collection<RoleImpl> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Collection<RoleImpl> userRoles) {
+        this.userRoles = userRoles;
+    }
 }
