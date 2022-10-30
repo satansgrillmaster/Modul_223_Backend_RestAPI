@@ -12,13 +12,13 @@ import ch.zli.m223.zli.model.impl.RoleImpl;
 public class UserDto {
     public long id;
     public String email;
-    public long userCountryId;
+    public long countryId;
     public List<String> roles = new ArrayList<>();
 
     public UserDto(AppUser appUser) {
         this.id = appUser.getId();
         this.email = appUser.getEmail();
-        this.userCountryId = appUser.getCountryId();
+        this.countryId = appUser.getCountryId();
         for (RoleImpl role: appUser.getUserRoles())
         {
             roles.add(role.getRole());

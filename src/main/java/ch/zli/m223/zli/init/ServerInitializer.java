@@ -31,12 +31,6 @@ public class ServerInitializer implements ApplicationRunner {
     @Transactional
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        List<String> roles = new ArrayList<>();
-
-        AppUserImpl user; // user1 is only a user
-        AppUserImpl user2; // user2 is an admin
-        AppUserImpl user3; // user3 is superuser
-        AppUserImpl user4;
 
         RoleImpl roleAdmin = new RoleImpl("admin");
         RoleImpl roleUser = new RoleImpl("user");
@@ -51,24 +45,31 @@ public class ServerInitializer implements ApplicationRunner {
         Collection<AppUserImpl> staffUsers = new ArrayList<>();
         Collection<AppUserImpl> users = new ArrayList<>();
 
-        UserCountryImpl country1 = userCountryRepository.save(new UserCountryImpl("ch","Schweiz"));
+        UserCountryImpl country1 = userCountryRepository.save(new UserCountryImpl("CH","Schweiz"));
+        UserCountryImpl country2 = userCountryRepository.save(new UserCountryImpl("DE","Deutschland"));
+        UserCountryImpl country3 = userCountryRepository.save(new UserCountryImpl("AT","Österreich"));
 
-        user = userRepository.save(new AppUserImpl("user@user.ch", "user"));
+        // Initialize users
+        AppUserImpl user = userRepository.save(new AppUserImpl("user@user.ch", "user"));
         users.add(user);
         user.setCountryId(country1.getId());
-        staffUsers.add(user);
 
-        user2 = userRepository.save(new AppUserImpl("admin@admin.ch", "admin"));
+        AppUserImpl user2 = userRepository.save(new AppUserImpl("admin@admin.ch", "admin"));
         adminUsers.add(user2);
+        users.add(user2);
+        user2.setCountryId(country1.getId());
 
-        user3 = userRepository.save(new AppUserImpl("staff@staff.ch", "staff"));
-        adminUsers.add(user3);
+        AppUserImpl user3 = userRepository.save(new AppUserImpl("staff@staff.ch", "staff"));
         users.add(user3);
         staffUsers.add(user3);
+        user3.setCountryId(country2.getId());
 
-        user4 = userRepository.save(new AppUserImpl("maetthe_hollenstein@hotmail.com", "password"));
+        AppUserImpl user4 = userRepository.save(new AppUserImpl("maetthe_hollenstein@hotmail.com", "password"));
         adminUsers.add(user4);
+        users.add(user4);
+        user4.setCountryId(country3.getId());
 
+        // Set roles
         roleAdmin.setUsers(adminUsers);
         roleUser.setUsers(users);
         roleStaff.setUsers(staffUsers);
