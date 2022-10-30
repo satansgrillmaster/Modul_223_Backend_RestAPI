@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
+import ch.zli.m223.zli.model.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,7 +26,10 @@ public class AppUserImpl implements AppUser {
     @Column
     private long countryId;
 
-    @ManyToMany(mappedBy = "users",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Column
+    private long salutationId;
+
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private Collection<RoleImpl> userRoles = new ArrayList<>();
 
 
@@ -110,11 +114,22 @@ public class AppUserImpl implements AppUser {
         return countryId;
     }
 
+    @Override
+    public Long getSalutationId() {
+        return salutationId;
+    }
+    public void setSalutationId(long salutationId) {
+        this.salutationId = salutationId;
+    }
+
+    @Override
     public void setUserRoles(Collection<RoleImpl> userRoles) {
         this.userRoles = userRoles;
     }
 
+    @Override
     public void setCountryId(long countryId) {
         this.countryId = countryId;
     }
+
 }

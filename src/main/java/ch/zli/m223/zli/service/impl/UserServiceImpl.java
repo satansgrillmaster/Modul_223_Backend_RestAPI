@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import ch.zli.m223.zli.model.impl.RoleImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteById(long id) {
-        getUserById(id);// Parameter check
+        getUserById(id);// Parameter checkf
+        AppUserImpl user = userRepository.findById(id).orElseThrow();
+        for (RoleImpl role: user.getUserRoles()
+             ) {
+            role.removeUser(user);
+        }
+        user.getUserRoles().clear();
         userRepository.deleteById(id);
     }
 

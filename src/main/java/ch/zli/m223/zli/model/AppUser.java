@@ -12,4 +12,7 @@ public interface AppUser extends UserDetails{
     public String getEmail();
     public Collection<RoleImpl> getUserRoles();
     public Long getCountryId();
+    public void setCountryId(long countryId);
+    public Long getSalutationId();
+    public void setUserRoles(Collection<RoleImpl> userRoles);
 }

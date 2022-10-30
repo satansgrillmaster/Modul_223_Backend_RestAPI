@@ -19,7 +19,7 @@ public class RoleImpl implements Role {
     private String role;
 
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "AppUser_Role",
     joinColumns = @JoinColumn(name = "role_id"),
     inverseJoinColumns = @JoinColumn(name = "appuser_id"))
@@ -51,4 +51,6 @@ public class RoleImpl implements Role {
     public void setUsers(Collection<AppUserImpl> users) {
         this.users = users;
     }
+
+    public void removeUser(AppUserImpl user){this.users.remove(user);}
 }
