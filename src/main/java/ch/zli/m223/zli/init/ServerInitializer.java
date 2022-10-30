@@ -1,15 +1,10 @@
 package ch.zli.m223.zli.init;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import javax.transaction.Transactional;
 
-import ch.zli.m223.zli.model.AppUser;
-import ch.zli.m223.zli.model.Role;
 import ch.zli.m223.zli.model.impl.RoleImpl;
-import ch.zli.m223.zli.model.UserCountry;
 import ch.zli.m223.zli.model.impl.UserCountryImpl;
 import ch.zli.m223.zli.repository.UserCountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +15,6 @@ import org.springframework.stereotype.Component;
 import ch.zli.m223.zli.model.impl.AppUserImpl;
 import ch.zli.m223.zli.repository.RoleRepository;
 import ch.zli.m223.zli.repository.UserRepository;
-import ch.zli.m223.zli.role.Roles;
 
 @Component
 public class ServerInitializer implements ApplicationRunner {
@@ -57,13 +51,11 @@ public class ServerInitializer implements ApplicationRunner {
         Collection<AppUserImpl> staffUsers = new ArrayList<>();
         Collection<AppUserImpl> users = new ArrayList<>();
 
-
-        UserCountryImpl country1;
-
-        country1 = userCountryRepository.save(new UserCountryImpl("ch"));
+        UserCountryImpl country1 = userCountryRepository.save(new UserCountryImpl("ch","Schweiz"));
 
         user = userRepository.save(new AppUserImpl("user@user.ch", "user"));
         users.add(user);
+        user.setCountryId(country1.getId());
         staffUsers.add(user);
 
         user2 = userRepository.save(new AppUserImpl("admin@admin.ch", "admin"));

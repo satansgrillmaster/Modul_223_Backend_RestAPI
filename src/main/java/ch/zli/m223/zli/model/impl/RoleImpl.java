@@ -18,6 +18,7 @@ public class RoleImpl implements Role {
     @Column(nullable = false)
     private String role;
 
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "AppUser_Role",
     joinColumns = @JoinColumn(name = "role_id"),

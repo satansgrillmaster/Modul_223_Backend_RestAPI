@@ -2,14 +2,10 @@ package ch.zli.m223.zli.model.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
-import ch.zli.m223.zli.controller.rest.dto.RoleDto;
-import ch.zli.m223.zli.model.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,6 +21,9 @@ public class AppUserImpl implements AppUser {
 
     @Column(unique = true, nullable = false)
     private String email;
+
+    @Column
+    private long countryId;
 
     @ManyToMany(mappedBy = "users",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<RoleImpl> userRoles = new ArrayList<>();
@@ -51,16 +50,6 @@ public class AppUserImpl implements AppUser {
     }// For JPA only
 
     @Override
-    public List<String> getRoles() {
-        List<String> test = new ArrayList<>();
-        for (Role role:getUserRoles()
-             ) {
-            test.add(role.getRole());
-        }
-        return test;
-    }
-
-    @Override
     public Long getId() {
         return id;
     }
@@ -76,8 +65,8 @@ public class AppUserImpl implements AppUser {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles().stream().map((role) -> {
-            return new SimpleGrantedAuthority(role);
+        return getUserRoles().stream().map((role) -> {
+            return new SimpleGrantedAuthority(role.getRole());
         }).collect(Collectors.toList());
     }
 
@@ -111,11 +100,21 @@ public class AppUserImpl implements AppUser {
         return true;
     }
 
+    @Override
     public Collection<RoleImpl> getUserRoles() {
         return userRoles;
     }
 
+    @Override
+    public Long getCountryId() {
+        return countryId;
+    }
+
     public void setUserRoles(Collection<RoleImpl> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    public void setCountryId(long countryId) {
+        this.countryId = countryId;
     }
 }

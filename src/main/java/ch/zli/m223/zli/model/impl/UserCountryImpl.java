@@ -1,5 +1,6 @@
 package ch.zli.m223.zli.model.impl;
 
+import ch.zli.m223.zli.model.AppUser;
 import ch.zli.m223.zli.model.UserCountry;
 import javax.persistence.*;
 
@@ -13,8 +14,12 @@ public class UserCountryImpl implements UserCountry {
     @Column(nullable = false)
     private String countryCode;
 
-    public UserCountryImpl(String countryCode){
+    @Column(nullable = false)
+    private String description;
+
+    public UserCountryImpl(String countryCode, String description){
         this.countryCode = countryCode;
+        this.description = description;
     }
 
     protected UserCountryImpl () {
@@ -28,4 +33,9 @@ public class UserCountryImpl implements UserCountry {
 
     @Override
     public String getCountryCode(){return countryCode;}
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
 }
