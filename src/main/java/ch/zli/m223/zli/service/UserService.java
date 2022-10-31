@@ -23,7 +23,7 @@ public interface UserService {
 
     AppUser setRolesForUser(long id, List<String> roles);
 
-    AppUser editUserWithRoles(long id, ArrayList<Long> roles);
+    AppUser editUserWithRoles(Long id, String email, long countryId, long salutationId, ArrayList<Long> roles);
 
     AppUser editUser(long id, String email, long countryId, long salutationId);
 

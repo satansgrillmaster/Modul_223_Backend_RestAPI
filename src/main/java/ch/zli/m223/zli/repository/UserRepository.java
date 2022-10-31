@@ -21,8 +21,8 @@ public interface UserRepository extends JpaRepository<AppUserImpl, Long>, JpaSpe
     public default AppUser edit(Long id, String email, long countryId, long salutationId) {
         return save(new AppUserImpl(id, email, countryId, salutationId));
     }
-    public default AppUser editWithRoles(Long id, Collection<RoleImpl> roles) {
-        return save(new AppUserImpl(id, roles));
+    public default AppUser editWithRoles(Long id, String email, long countryId, long salutationId, Collection<RoleImpl> roles) {
+        return save(new AppUserImpl(id, email, countryId, salutationId, roles));
     }
 
 }

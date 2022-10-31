@@ -57,8 +57,10 @@ public class UserRestController {
         userService.editUser(id, email, countryId, salutationId);
     }
     @PostMapping("/edituserWithRole")
-    public void editUserWithRole(@RequestParam long id, @RequestParam ArrayList<Long> roles) {
-        userService.editUserWithRoles(id, roles);
+    public void editUserWithRole(@RequestParam long id, @RequestParam String email,
+                                 @RequestParam long countryId, @RequestParam long salutationId,
+                                 @RequestParam ArrayList<Long> roles) {
+        userService.editUserWithRoles(id, email, countryId, salutationId, roles);
     }
 
     //delete an user by his id

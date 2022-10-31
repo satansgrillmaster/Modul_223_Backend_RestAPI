@@ -80,26 +80,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public AppUser editUserWithRoles(long id, ArrayList<Long> roles) {
+    public AppUser editUserWithRoles(Long id, String email, long countryId, long salutationId, ArrayList<Long> roles) {
 
-        Collection<RoleImpl> test = new ArrayList<>();
+        Collection<RoleImpl> newRoles = new ArrayList<>();
         AppUserImpl user = userRepository.findById(id).orElseThrow();
+
         for (RoleImpl role: user.getUserRoles()
              ) {
             if(!roles.contains(role.getId())){
                 role.removeUser(user);
             }
         }
-        test.addAll(roleRepository.findAllById(roles));
-        System.out.println(test.size());
-        for (RoleImpl role: test
+        newRoles.addAll(roleRepository.findAllById(roles));
+
+        for (RoleImpl role: newRoles
         ) {
             if (!role.getUsers().contains(user)){
                 role.addUser(user);
             }
         }
 
-        return userRepository.editWithRoles(id, test);
+        return userRepository.editWithRoles(id, email, countryId, salutationId, newRoles);
     }
 
 }
