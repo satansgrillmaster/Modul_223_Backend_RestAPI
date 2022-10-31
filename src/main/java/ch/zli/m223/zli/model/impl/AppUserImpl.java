@@ -43,10 +43,18 @@ public class AppUserImpl implements AppUser {
         hashedPassword = new BCryptPasswordEncoder().encode(password);
     }
 
-    public AppUserImpl(Long id, String email, String password) {
+    public AppUserImpl(Long id, String email, long countryId, long salutationId) {
         this.id = id;
         this.email = email;
-        hashedPassword = new BCryptPasswordEncoder().encode(password);
+        this.countryId = countryId;
+        this.salutationId = salutationId;
+    }
+    public AppUserImpl(Long id, Collection<RoleImpl> roles) {
+        this.id = id;
+        this.email = "test" + id;
+        this.countryId = getCountryId();
+        this.salutationId = getSalutationId();
+        this.userRoles = roles;
     }
 
     protected AppUserImpl() {
@@ -65,6 +73,10 @@ public class AppUserImpl implements AppUser {
 
     public void addRole(RoleImpl role) {
         userRoles.add(role);
+    }
+
+    public void clearRoles(){
+        userRoles.clear();
     }
 
     @Override
@@ -126,6 +138,9 @@ public class AppUserImpl implements AppUser {
     public void setUserRoles(Collection<RoleImpl> userRoles) {
         this.userRoles = userRoles;
     }
+
+    @Override
+    public void removeRole(RoleImpl role){this.userRoles.remove(role);}
 
     @Override
     public void setCountryId(long countryId) {

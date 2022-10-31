@@ -1,6 +1,7 @@
 package ch.zli.m223.zli.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteById(long id) {
-        getUserById(id);// Parameter checkf
+        getUserById(id);// Parameter
         AppUserImpl user = userRepository.findById(id).orElseThrow();
         for (RoleImpl role: user.getUserRoles()
              ) {
@@ -74,15 +75,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public AppUser editUser(long id, String password, String email) {
-        if (email == null || password == null) {
-            throw new InvalidParamException();
-        }
-        if (userRepository.findUserByEmail(email).isPresent()) {
-            throw new UserAlreadyExistsException();
+    public AppUser editUser(long id, String email, long countryId, long salutationId) {
+        return userRepository.edit(id, email, countryId, salutationId);
+    }
 
+    @Override
+    public AppUser editUserWithRoles(long id, ArrayList<Long> roles) {
+
+        Collection<RoleImpl> test = new ArrayList<>();
+        AppUserImpl user = userRepository.findById(id).orElseThrow();
+        for (RoleImpl role: user.getUserRoles()
+             ) {
+            if(!roles.contains(role.getId())){
+                role.removeUser(user);
+            }
         }
-        return userRepository.edit(id, email, password);
+        test.addAll(roleRepository.findAllById(roles));
+        System.out.println(test.size());
+        for (RoleImpl role: test
+        ) {
+            if (!role.getUsers().contains(user)){
+                role.addUser(user);
+            }
+        }
+
+        return userRepository.editWithRoles(id, test);
     }
 
 }

@@ -1,16 +1,15 @@
 package ch.zli.m223.zli.controller.rest;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ch.zli.m223.zli.model.impl.AppUserImpl;
+import ch.zli.m223.zli.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import ch.zli.m223.zli.controller.rest.dto.UserDto;
 import ch.zli.m223.zli.controller.rest.dto.UserInputDto;
@@ -26,6 +25,9 @@ public class UserRestController {
 
     @Autowired //Spring itself searches an service, and injects it here
     private UserService userService;
+
+    @Autowired //Spring itself searches an service, and injects it here
+    private RoleService roleService;
 
     //Get a list of all users
     @GetMapping("")
@@ -44,11 +46,19 @@ public class UserRestController {
     public UserDto getUserById(@PathVariable("id") long id) {
         return new UserDto(userService.getUserById(id));
     }
-
     //add an new user with a post
     @PostMapping("")
     public UserDto addUser(@RequestBody UserInputDto user) {
         return new UserDto(userService.addUser(user.email, user.password));
+    }
+    @PostMapping("/edituser")
+    public void editUser(@RequestParam long id, @RequestParam String email,
+                         @RequestParam long countryId, @RequestParam long salutationId) {
+        userService.editUser(id, email, countryId, salutationId);
+    }
+    @PostMapping("/edituserWithRole")
+    public void editUserWithRole(@RequestParam long id, @RequestParam ArrayList<Long> roles) {
+        userService.editUserWithRoles(id, roles);
     }
 
     //delete an user by his id

@@ -76,12 +76,12 @@ public class UserController {
      * @param password of the user
      * @return lets the function getAllUsers(Model model) run
      */
-    @PostMapping("/admin/edituser")
+/*    @PostMapping("/admin/edituser")
     public String editUser(@RequestParam long id, Model model, @RequestParam String email,
                            @RequestParam String password) {
         userService.editUser(id, password, email);
         return getAllUsers(model);
-    }
+    }*/
 
     /**
      * Is to delete a user

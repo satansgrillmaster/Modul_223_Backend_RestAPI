@@ -52,5 +52,7 @@ public class RoleImpl implements Role {
         this.users = users;
     }
 
+    public void addUser(AppUserImpl user){this.users.add(user);}
+
     public void removeUser(AppUserImpl user){this.users.remove(user);}
 }

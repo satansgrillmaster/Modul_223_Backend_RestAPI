@@ -1,7 +1,9 @@
 package ch.zli.m223.zli.repository;
 
+import java.util.Collection;
 import java.util.Optional;
 
+import ch.zli.m223.zli.model.impl.RoleImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import ch.zli.m223.zli.model.AppUser;
@@ -16,8 +18,11 @@ public interface UserRepository extends JpaRepository<AppUserImpl, Long>, JpaSpe
         return save(new AppUserImpl(email, password));
     }
 
-    public default AppUser edit(Long id, String email, String password) {
-        return save(new AppUserImpl(id, email, password));
+    public default AppUser edit(Long id, String email, long countryId, long salutationId) {
+        return save(new AppUserImpl(id, email, countryId, salutationId));
+    }
+    public default AppUser editWithRoles(Long id, Collection<RoleImpl> roles) {
+        return save(new AppUserImpl(id, roles));
     }
 
 }
