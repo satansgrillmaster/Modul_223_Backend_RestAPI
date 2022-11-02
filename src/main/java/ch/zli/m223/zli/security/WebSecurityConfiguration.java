@@ -30,13 +30,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        configureWeb(http);
-        // configureRest(http);
+        configureRest(http);
     }
 
-    private void configureWeb(HttpSecurity http) throws Exception {
+    private void configureRest(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/web/customers/admin/**").hasAuthority(Roles.ADMIN)
+                .antMatchers("/api/v0/roles/**").hasAuthority(Roles.ADMIN)
                 .antMatchers("/web/users/admin/**").hasAuthority(Roles.ADMIN)
                 .antMatchers("/").hasAnyAuthority(Roles.ADMIN, Roles.USER)
                 .anyRequest().authenticated()

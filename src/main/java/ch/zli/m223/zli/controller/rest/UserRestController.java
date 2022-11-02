@@ -47,6 +47,9 @@ public class UserRestController {
         return new UserDto(userService.getUserById(id));
     }
 
+    @PostMapping("/email")
+    public UserDto getUserByEmail(@RequestParam("email") String email){return new UserDto(userService.getUserByEmail(email).get());}
+
     //add an new user with a post
     @PostMapping("")
     public UserDto addUser(@RequestParam String email, @RequestParam String password,
