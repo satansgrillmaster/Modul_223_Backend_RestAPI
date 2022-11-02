@@ -7,5 +7,7 @@ public class UserInputDto {
 
     public String email;
     public String password;
+    public long countryId;
+    public long salutationId;
 
 }

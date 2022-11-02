@@ -115,8 +115,9 @@ public class UserController {
      * @return the new view of all users
      */
     @PostMapping("/admin/adduser")
-    public String addAnUser(Model model, @RequestParam String email, @RequestParam String password) {
-        userService.addUser(email, password);
+    public String addAnUser(Model model, @RequestParam String email, @RequestParam String password,
+                            @RequestParam long countryId, @RequestParam long salutationId) {
+        userService.addUser(email, password, countryId, salutationId);
         return getAllUsers(model);
     }
 }

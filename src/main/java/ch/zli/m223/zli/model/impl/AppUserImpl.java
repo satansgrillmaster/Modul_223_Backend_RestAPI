@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
-import ch.zli.m223.zli.model.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,14 +31,12 @@ public class AppUserImpl implements AppUser {
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private Collection<RoleImpl> userRoles = new ArrayList<>();
 
-
-    //    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //    private List<RoleImpl> roles;
-
     private String hashedPassword;
 
-    public AppUserImpl(String email, String password) {
+    public AppUserImpl(String email, String password, long countryId, long salutationId) {
         this.email = email;
+        this.countryId = countryId;
+        this.salutationId = salutationId;
         hashedPassword = new BCryptPasswordEncoder().encode(password);
     }
 
@@ -51,9 +48,9 @@ public class AppUserImpl implements AppUser {
     }
     public AppUserImpl(long id, String email, long countryId, long salutationId, Collection<RoleImpl> roles) {
         this.id = id;
-        this.email = "test" + id;
-        this.countryId = getCountryId();
-        this.salutationId = getSalutationId();
+        this.email = email;
+        this.countryId = countryId;
+        this.salutationId = salutationId;
         this.userRoles = roles;
     }
 
@@ -75,9 +72,7 @@ public class AppUserImpl implements AppUser {
         userRoles.add(role);
     }
 
-    public void clearRoles(){
-        userRoles.clear();
-    }
+    public void removeRole(RoleImpl role){userRoles.remove(role);}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -46,10 +46,12 @@ public class UserRestController {
     public UserDto getUserById(@PathVariable("id") long id) {
         return new UserDto(userService.getUserById(id));
     }
+
     //add an new user with a post
     @PostMapping("")
-    public UserDto addUser(@RequestBody UserInputDto user) {
-        return new UserDto(userService.addUser(user.email, user.password));
+    public UserDto addUser(@RequestParam String email, @RequestParam String password,
+                           @RequestParam long countryId, @RequestParam long salutationId) {
+        return new UserDto(userService.addUser(email, password, countryId,salutationId));
     }
     @PostMapping("/edituser")
     public void editUser(@RequestParam long id, @RequestParam String email,
@@ -62,23 +64,15 @@ public class UserRestController {
                                  @RequestParam ArrayList<Long> roles) {
         userService.editUserWithRoles(id, email, countryId, salutationId, roles);
     }
+    @PostMapping("/delete/user/role")
+    public void deleteRoleFromUser(@RequestParam long userId, @RequestParam long roleId) {
+        userService.deleteRoleFromUser(userId, roleId);
+    }
+
 
     //delete an user by his id
     @GetMapping("/{id}/delete")
     public void deleteUserById(@PathVariable("id") long id) {
         userService.deleteById(id);
-    }
-
-    //add a new role to an user
-    @PostMapping("/{id}/roles")
-    public UserDto addRole(@PathVariable("id") long id, @RequestBody List<String> roles) {
-
-        return new UserDto(userService.setRolesForUser(id, roles));
-    }
-
-
-    @DeleteMapping("/{id}/roles")
-    public void deleteRole(@PathVariable("id") long id) {
-
     }
 }

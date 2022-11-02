@@ -14,8 +14,8 @@ public interface UserRepository extends JpaRepository<AppUserImpl, Long>, JpaSpe
 
     public Optional<AppUserImpl> findUserByEmail(String email);
 
-    public default AppUser add(String email, String password) {
-        return save(new AppUserImpl(email, password));
+    public default AppUser add(String email, String password, long countryId, long salutationId) {
+        return save(new AppUserImpl(email, password, countryId, salutationId));
     }
 
     public default AppUser edit(Long id, String email, long countryId, long salutationId) {

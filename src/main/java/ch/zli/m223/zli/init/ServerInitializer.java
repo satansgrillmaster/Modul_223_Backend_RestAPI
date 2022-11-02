@@ -61,29 +61,21 @@ public class ServerInitializer implements ApplicationRunner {
         UserCountryImpl country3 = userCountryRepository.save(new UserCountryImpl("AT","Österreich"));
 
         // Initialize users
-        AppUserImpl user = userRepository.save(new AppUserImpl("user@user.ch", "user"));
+        AppUserImpl user = userRepository.save(new AppUserImpl("user@user.ch", "user", 1, 1));
         users.add(user);
-        user.setCountryId(country1.getId());
-        user.setSalutationId(salutation2.getId());
 
-        AppUserImpl user2 = userRepository.save(new AppUserImpl("admin@admin.ch", "admin"));
+        AppUserImpl user2 = userRepository.save(new AppUserImpl("admin@admin.ch", "admin", 2, 2));
         adminUsers.add(user2);
         users.add(user2);
-        user2.setCountryId(country1.getId());
-        user2.setSalutationId(salutation3.getId());
 
 
-        AppUserImpl user3 = userRepository.save(new AppUserImpl("staff@staff.ch", "staff"));
+        AppUserImpl user3 = userRepository.save(new AppUserImpl("staff@staff.ch", "staff", 3, 3));
         users.add(user3);
         staffUsers.add(user3);
-        user3.setCountryId(country2.getId());
-        user3.setSalutationId(salutation1.getId());
 
-        AppUserImpl user4 = userRepository.save(new AppUserImpl("maetthe_hollenstein@hotmail.com", "password"));
+        AppUserImpl user4 = userRepository.save(new AppUserImpl("maetthe_hollenstein@hotmail.com", "password", 1, 1));
         adminUsers.add(user4);
         users.add(user4);
-        user4.setCountryId(country3.getId());
-        user4.setSalutationId(salutation1.getId());
 
 
         // Set roles

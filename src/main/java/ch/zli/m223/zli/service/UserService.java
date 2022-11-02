@@ -19,11 +19,11 @@ public interface UserService {
 
     Optional<AppUserImpl> getUserByEmail(String email);
 
-    AppUser addUser(String email, String password);
-
-    AppUser setRolesForUser(long id, List<String> roles);
+    AppUser addUser(String email, String password, long countryId, long salutationId);
 
     AppUser editUserWithRoles(Long id, String email, long countryId, long salutationId, ArrayList<Long> roles);
+
+    void deleteRoleFromUser(long userId, long roleId);
 
     AppUser editUser(long id, String email, long countryId, long salutationId);
 

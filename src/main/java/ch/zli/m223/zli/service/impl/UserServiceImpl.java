@@ -54,24 +54,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public AppUser addUser(String email, String password) {
-        if (email == null || password == null) {
-            throw new InvalidParamException();
-        }
-        if (userRepository.findUserByEmail(email).isPresent()) {
-            throw new UserAlreadyExistsException();
-
-        }
-        return userRepository.add(email, password);
-    }
-
-    @Override
-    public AppUser setRolesForUser(long id, List<String> roles) {
-        AppUser user = getUserById(id); // Parameter check
-        if (roles == null) {
-            throw new InvalidParamException();
-        }
-        return roleRepository.setRoles(user, roles);
+    public AppUser addUser(String email, String password, long countryId, long salutationId ) {
+        System.out.println(email + "  " + password);
+//        if (email == null || password == null) {
+//            throw new InvalidParamException();
+//        }
+//        if (userRepository.findUserByEmail(email).isPresent()) {
+//            throw new UserAlreadyExistsException();
+//
+//        }
+        return userRepository.add(email, password, countryId, salutationId);
     }
 
     @Override
@@ -101,6 +93,17 @@ public class UserServiceImpl implements UserService {
         }
 
         return userRepository.editWithRoles(id, email, countryId, salutationId, newRoles);
+    }
+
+    @Override
+    public void deleteRoleFromUser(long userId, long roleId) {
+        AppUserImpl user = userRepository.findById(userId).get();
+        RoleImpl role = roleRepository.findById(roleId).get();
+
+        role.removeUser(user);
+        user.removeRole(role);
+        userRepository.save(user);
+        roleRepository.save(role);
     }
 
 }
