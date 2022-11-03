@@ -25,6 +25,8 @@ public interface UserService {
 
     void deleteRoleFromUser(long userId, long roleId);
 
+    void addRoleToUser(long userId, long roleId);
+
     AppUser editUser(long id, String email, long countryId, long salutationId);
 
 }

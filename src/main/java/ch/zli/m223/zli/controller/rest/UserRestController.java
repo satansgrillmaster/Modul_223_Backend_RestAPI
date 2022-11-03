@@ -72,6 +72,11 @@ public class UserRestController {
         userService.deleteRoleFromUser(userId, roleId);
     }
 
+    @PostMapping("/add/user/role")
+    public void addRoleToUser(@RequestParam long userId, @RequestParam long roleId){
+        userService.addRoleToUser(userId, roleId);
+    }
+
 
     //delete an user by his id
     @GetMapping("/{id}/delete")
