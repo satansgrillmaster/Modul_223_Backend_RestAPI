@@ -8,9 +8,7 @@ import ch.zli.m223.zli.model.UserSalutation;
 import ch.zli.m223.zli.service.SalutationService;
 import ch.zli.m223.zli.service.UserCountryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,5 +27,15 @@ public class UserSalutationRestController {
                 .map((UserSalutation salutation) -> {
                     return new UserSalutationDto(salutation);
                 }).collect(Collectors.toList());
+    }
+
+    @PostMapping("/delete")
+    public void deleteSalutation(@RequestParam long salutationId){
+        salutationService.deleteSalutation(salutationId);
+    }
+
+    @PostMapping("/add")
+    public void addSalutation(@RequestParam String description){
+        salutationService.addSalutation(description);
     }
 }

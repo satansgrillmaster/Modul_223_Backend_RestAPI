@@ -15,7 +15,7 @@ public class RoleImpl implements Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // makes an auto-increment on the id
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String role;
 
 

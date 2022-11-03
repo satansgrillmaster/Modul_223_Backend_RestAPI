@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface SalutationService {
     public List<UserSalutation> getAllSalutations();
+    void deleteSalutation(long salutationId);
+    void addSalutation(String description);
 }
