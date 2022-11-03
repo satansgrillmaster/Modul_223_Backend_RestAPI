@@ -6,10 +6,7 @@ import ch.zli.m223.zli.controller.rest.dto.UserDto;
 import ch.zli.m223.zli.model.UserCountry;
 import ch.zli.m223.zli.service.UserCountryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,5 +25,15 @@ public class UserCountryRestController {
                 .map((UserCountry country) -> {
                     return new UserCountryDto(country);
                 }).collect(Collectors.toList());
+    }
+
+    @PostMapping("/delete")
+    public void deleteCountry(@RequestParam long countryId){
+        userCountryService.deleteCountry(countryId);
+    }
+
+    @PostMapping("/add")
+    public void addCountry(@RequestParam String countryCode ,@RequestParam String description){
+        userCountryService.addCountry(countryCode, description);
     }
 }

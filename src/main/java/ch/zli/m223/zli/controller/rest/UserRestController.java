@@ -34,8 +34,6 @@ public class UserRestController {
     public List<UserDto> getAllUsers() {
         List<AppUser> users = userService.getAllUsers();
         return users.stream()
-                //.skip(n) #to skip as many users we want
-                //.filter() #to filter something
                 .map((AppUser user) -> {
                     return new UserDto(user);
                 }).collect(Collectors.toList());

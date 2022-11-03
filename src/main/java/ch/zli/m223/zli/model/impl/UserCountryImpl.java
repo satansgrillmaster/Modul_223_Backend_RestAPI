@@ -11,7 +11,7 @@ public class UserCountryImpl implements UserCountry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String countryCode;
 
     @Column(nullable = false)
