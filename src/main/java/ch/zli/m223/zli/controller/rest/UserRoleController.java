@@ -4,9 +4,7 @@ import ch.zli.m223.zli.controller.rest.dto.RoleDto;
 import ch.zli.m223.zli.model.Role;
 import ch.zli.m223.zli.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,5 +22,14 @@ public class UserRoleController {
                 .map((Role role) -> {
                     return new RoleDto(role);
                 }).collect(Collectors.toList());
+    }
+
+    @PostMapping("/add")
+    public void addRole(@RequestParam String role){
+        roleService.addRole(role);
+    }
+    @PostMapping("/delete")
+    public void deleteRole(@RequestParam long roleId){
+        roleService.deleteRole(roleId);
     }
 }
