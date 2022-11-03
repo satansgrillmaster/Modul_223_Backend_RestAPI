@@ -6,7 +6,6 @@ import ch.zli.m223.zli.model.Role;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
 
 @Entity(name = "Role")
 public class RoleImpl implements Role {

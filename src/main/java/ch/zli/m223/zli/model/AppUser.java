@@ -8,10 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface AppUser extends UserDetails{
 
-    public Long getId();
-    public String getEmail();
-    public Collection<RoleImpl> getUserRoles();
-    public Long getCountryId();
-    public void setCountryId(long countryId);
-    public Long getSalutationId();
+    Long getId();
+    String getEmail();
+    Collection<RoleImpl> getUserRoles();
+    Long getCountryId();
+    void setCountryId(long countryId);
+    Long getSalutationId();
 }

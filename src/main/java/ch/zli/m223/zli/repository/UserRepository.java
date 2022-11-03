@@ -12,16 +12,16 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface UserRepository extends JpaRepository<AppUserImpl, Long>, JpaSpecificationExecutor<AppUserImpl> {
 
-    public Optional<AppUserImpl> findUserByEmail(String email);
+    Optional<AppUserImpl> findUserByEmail(String email);
 
-    public default AppUser add(String email, String password, long countryId, long salutationId) {
+    default AppUser add(String email, String password, long countryId, long salutationId) {
         return save(new AppUserImpl(email, password, countryId, salutationId));
     }
 
-    public default AppUser edit(Long id, String email, long countryId, long salutationId) {
+    default AppUser edit(Long id, String email, long countryId, long salutationId) {
         return save(new AppUserImpl(id, email, countryId, salutationId));
     }
-    public default AppUser editWithRoles(Long id, String email, long countryId, long salutationId, Collection<RoleImpl> roles) {
+    default AppUser editWithRoles(Long id, String email, long countryId, long salutationId, Collection<RoleImpl> roles) {
         return save(new AppUserImpl(id, email, countryId, salutationId, roles));
     }
 

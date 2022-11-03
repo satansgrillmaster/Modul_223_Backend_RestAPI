@@ -28,6 +28,7 @@ public class UserRoleController {
     public void addRole(@RequestParam String role){
         roleService.addRole(role);
     }
+
     @PostMapping("/delete")
     public void deleteRole(@RequestParam long roleId){
         roleService.deleteRole(roleId);

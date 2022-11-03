@@ -1,18 +1,14 @@
 package ch.zli.m223.zli.controller.rest;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import ch.zli.m223.zli.model.impl.AppUserImpl;
 import ch.zli.m223.zli.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import ch.zli.m223.zli.controller.rest.dto.UserDto;
-import ch.zli.m223.zli.controller.rest.dto.UserInputDto;
 import ch.zli.m223.zli.model.AppUser;
 import ch.zli.m223.zli.service.UserService;
 

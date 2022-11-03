@@ -125,6 +125,8 @@ public class AppUserImpl implements AppUser {
     public Long getSalutationId() {
         return salutationId;
     }
+
+
     public void setSalutationId(long salutationId) {
         this.salutationId = salutationId;
     }

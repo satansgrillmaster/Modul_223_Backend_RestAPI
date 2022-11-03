@@ -1,8 +1,6 @@
 package ch.zli.m223.zli.controller.rest;
 
-
 import ch.zli.m223.zli.controller.rest.dto.UserCountryDto;
-import ch.zli.m223.zli.controller.rest.dto.UserDto;
 import ch.zli.m223.zli.model.UserCountry;
 import ch.zli.m223.zli.service.UserCountryService;
 import org.springframework.beans.factory.annotation.Autowired;

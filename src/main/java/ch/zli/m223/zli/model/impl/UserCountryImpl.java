@@ -1,6 +1,5 @@
 package ch.zli.m223.zli.model.impl;
 
-import ch.zli.m223.zli.model.AppUser;
 import ch.zli.m223.zli.model.UserCountry;
 import javax.persistence.*;
 
