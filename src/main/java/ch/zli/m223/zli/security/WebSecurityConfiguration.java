@@ -35,7 +35,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private void configureRest(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/api/v0/roles/**").hasAuthority(Roles.ADMIN)
+                .antMatchers("/api/v0/countries/delete/**").hasAuthority(Roles.ADMIN)
+                .antMatchers("/api/v0/roles/delete/**").hasAuthority(Roles.ADMIN)
+                .antMatchers("/api/v0/salutations/add/**").hasAuthority(Roles.ADMIN)                .antMatchers("/api/v0/countries/delete/**").hasAuthority(Roles.ADMIN)
+                .antMatchers("/api/v0/roles/add/**").hasAuthority(Roles.ADMIN)
+                .antMatchers("/api/v0/salutations/add/**").hasAuthority(Roles.ADMIN)
                 .antMatchers("/").hasAnyAuthority(Roles.ADMIN, Roles.USER)
                 .anyRequest().authenticated()
                 .and().formLogin().permitAll()
